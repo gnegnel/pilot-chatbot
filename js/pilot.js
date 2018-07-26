@@ -142,7 +142,7 @@ class Game {
    * @description - Analyzes the parameters and returns if it means a level up or not. Responsible for the level up logic.
    */
   checkLevelUp({ level, weekStreak }) {
-    if (GAME.level[level] === weekStreak) {
+    if (GAME.levels[level] === weekStreak) {
       return true;
     } else {
       return false;
