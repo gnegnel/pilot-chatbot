@@ -609,7 +609,7 @@ describe("Game functions", function() {
       let weekStreak = 1;
 
       // Act.
-      const result = checkLevelUp({
+      const result = GAME.checkLevelUp({
         level: level,
         weekStreak: weekStreak
       });
@@ -624,7 +624,7 @@ describe("Game functions", function() {
       let weekStreak = 0;
 
       // Act.
-      const result = checkLevelUp({
+      const result = GAME.checkLevelUp({
         level: level,
         weekStreak: weekStreak
       });
@@ -639,7 +639,7 @@ describe("Game functions", function() {
       let weekStreak = 0;
 
       // Act.
-      const result = checkLevelUp({
+      const result = GAME.checkLevelUp({
         level: level,
         weekStreak: weekStreak
       });
@@ -654,7 +654,7 @@ describe("Game functions", function() {
       let weekStreak = 0;
 
       // Act.
-      const result = checkLevelUp({
+      const result = GAME.checkLevelUp({
         level: level,
         weekStreak: weekStreak
       });
@@ -669,7 +669,7 @@ describe("Game functions", function() {
       let weekStreak = -1;
 
       // Act.
-      const result = checkLevelUp({
+      const result = GAME.checkLevelUp({
         level: level,
         weekStreak: weekStreak
       });
