@@ -569,6 +569,9 @@ describe("User functions", function() {
     user.tickets = new Array(0);
   });
 
+  // ------------------------------------------------------------------------------------------------ //
+  // Add Ticket
+  // ------------------------------------------------------------------------------------------------ //
   describe("addTicket", function() {
     it("adds a ticket to the user's array of ticket", function() {
       // Arrange.
@@ -596,6 +599,9 @@ describe("User functions", function() {
 describe("Game functions", function() {
   const GAME = new Game();
 
+  // ------------------------------------------------------------------------------------------------ //
+  // Check Level Up
+  // ------------------------------------------------------------------------------------------------ //
   describe("checkLevelUp", function() {
     it("returns true when it levels up", function() {
       // Arrange.
