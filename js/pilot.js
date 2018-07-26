@@ -9,7 +9,6 @@
 // -------------------------------------------------------------------------------------------------- //
 // Constant Variables
 // -------------------------------------------------------------------------------------------------- //
-const TODAY = new Date();
 
 // -------------------------------------------------------------------------------------------------- //
 // Utility Functions
@@ -116,6 +115,43 @@ function validate({ values, types }) {
 }
 
 // ================================================================================================== //
+//    ___
+//   / __|__ _ _ __  ___
+//  | (_ / _` | '  \/ -_)
+//   \___\__,_|_|_|_\___|
+//
+// ================================================================================================== //
+class Game {
+  /**
+   * @constructor
+   */
+  constructor() {
+    // The array has the level as a key and the value is the amount of consecutive weeks to level up.
+    this.levels = [1, 2, 2, 3, 3, 4, 4, 5, 5, 6];
+    // The array has the level as a key and the value is the amount of prices that a user receives after a successful week.
+    this.prices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    // The amount of tickets a user must upload a week for it to be successful.
+    this.goal = 5;
+  }
+
+  /**
+   * @name checkLevelUp
+   * @param {Number} level - A user's current level.
+   * @param {Number} weekStreak - A user's current week streak.
+   * @returns {Boolean} - True if the user just leveled up.
+   * @description - Analyzes the parameters and returns if it means a level up or not. Responsible for the level up logic.
+   */
+  checkLevelUp({ level, weekStreak }) {
+    if (GAME.levels[level] === weekStreak) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
+const GAME = new Game();
+
+// ================================================================================================== //
 //   _   _
 //  | | | |___ ___ _ _
 //  | |_| (_-</ -_) '_|
@@ -170,46 +206,12 @@ class User {
    * @description - Evaluates the user’s tickets and weekSteak for a possibility for level advancement.
    */
   updateProgress() {
-    var daysSinceMonday = getDaysSinceLastMonday(TODAY);
+    var daysSinceMonday = getDaysSinceLastMonday(new Date());
     var thisWeekTickets = this.getTicketsInDateRange({
       startDate: new Date(),
       days: daysSinceMonday,
       backwards: true
     });
-  }
-}
-
-// ================================================================================================== //
-//    ___
-//   / __|__ _ _ __  ___
-//  | (_ / _` | '  \/ -_)
-//   \___\__,_|_|_|_\___|
-//
-// ================================================================================================== //
-class Game {
-  /**
-   * @constructor
-   */
-  constructor() {
-    // The array has the level as a key and the value is the amount of consecutive weeks to level up.
-    this.levels = [1, 2, 2, 3, 3, 4, 4, 5, 5, 6];
-    // The array has the level as a key and the value is the amount of prices that a user receives after a successful week.
-    this.prices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    // The amount of tickets a user must upload a week for it to be successful.
-    this.goal = 4;
-  }
-
-  /**
-   * @name checkLevelUp
-   * @param {Number} level - A user's current level.
-   * @param {Number} weekStreak - A user's current week streak.
-   * @returns {Boolean} - True if the user just leveled up.
-   * @description - Analyzes the parameters and returns if it means a level up or not. Responsible for the level up logic.
-   */
-  checkLevelUp({ level, weekStreak }) {
-    if (level === 1) {
-    } else {
-    }
   }
 }
 
