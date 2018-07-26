@@ -192,9 +192,13 @@ class Game {
    */
   constructor() {
     // The array has the level as a key and the value is the amount of consecutive weeks to level up.
+    //   [Onboarding, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     this.levels = [1, 2, 2, 3, 3, 4, 4, 5, 5, 6];
+
     // The array has the level as a key and the value is the amount of prices that a user receives after a successful week.
+    //   [Onboarding, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     this.prices = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
     // The amount of tickets a user must upload a week for it to be successful.
     this.goal = 4;
   }
@@ -206,11 +210,7 @@ class Game {
    * @returns {Boolean} - True if the user just leveled up.
    * @description - Analyzes the parameters and returns if it means a level up or not. Responsible for the level up logic.
    */
-  checkLevelUp({ level, weekStreak }) {
-    if (level === 1) {
-    } else {
-    }
-  }
+  checkLevelUp({ level, weekStreak }) {}
 }
 
 // ================================================================================================== //
