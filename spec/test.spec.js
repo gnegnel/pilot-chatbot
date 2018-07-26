@@ -560,20 +560,27 @@ describe("Error handling", function() {
 // ================================================================================================== //
 
 describe("User functions", function() {
+  var user = new User({
+    id: 12345678,
+    gender: "male"
+  });
+
+  beforeEach(function() {
+    user.tickets = new Array(0);
+  });
+
   describe("addTicket", function() {
     it("adds a ticket to the user's array of ticket", function() {
-      // Arrange
+      // Arrange.
       let ticket = new Ticket({
         timestamp: new Date(),
         url: "www.example.com/image.jpg"
       });
-      let user = new User({
-        id:12345678,
-        gender: "male"
-      });
-      // Act
-      user.addTicket({ticket: ticket});
-      // Assert
+
+      // Act.
+      user.addTicket({ ticket: ticket });
+
+      // Assert.
       expect(ticket).toBe(user.tickets[0]);
     });
   });
@@ -586,20 +593,86 @@ describe("User functions", function() {
 //   \___\__,_|_|_|_\___|
 //
 // ================================================================================================== //
+describe("Game functions", function() {
+  const GAME = new Game();
 
-// describe("Game functions", function() {
-//   describe("checkLevelUp()", function() {
-//     it("returns true if the parameters mean a level up", function() {
-//       // Arrange.
-//       let level = 4;
-//       let weekStreak = 3:
-//       // Act.
+  describe("checkLevelUp", function() {
+    it("returns true when it levels up", function() {
+      // Arrange.
+      let level = 0;
+      let weekStreak = 1;
 
-//       // Assert. 
+      // Act.
+      const result = checkLevelUp({
+        level: level,
+        weekStreak: weekStreak
+      });
 
-//     });
-//   });
-// });
+      // Assert.
+      expect(result).toBe(true);
+    });
+
+    it("returns false when it doesn't level up", function() {
+      // Arrange.
+      let level = 0;
+      let weekStreak = 0;
+
+      // Act.
+      const result = checkLevelUp({
+        level: level,
+        weekStreak: weekStreak
+      });
+
+      // Assert.
+      expect(result).toBe(false);
+    });
+
+    it("returns false when the level doesn't exist", function() {
+      // Arrange.
+      let level = 11;
+      let weekStreak = 0;
+
+      // Act.
+      const result = checkLevelUp({
+        level: level,
+        weekStreak: weekStreak
+      });
+
+      // Assert.
+      expect(result).toBe(false);
+    });
+
+    it("returns false when the level is negative", function() {
+      // Arrange.
+      let level = -1;
+      let weekStreak = 0;
+
+      // Act.
+      const result = checkLevelUp({
+        level: level,
+        weekStreak: weekStreak
+      });
+
+      // Assert.
+      expect(result).toBe(false);
+    });
+
+    it("returns false when the week streak is negative", function() {
+      // Arrange.
+      let level = 0;
+      let weekStreak = -1;
+
+      // Act.
+      const result = checkLevelUp({
+        level: level,
+        weekStreak: weekStreak
+      });
+
+      // Assert.
+      expect(result).toBe(false);
+    });
+  });
+});
 
 // ================================================================================================== //
 //   _____ _    _       _
