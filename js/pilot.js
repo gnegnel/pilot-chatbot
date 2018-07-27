@@ -198,8 +198,36 @@ class User {
    * @returns {Array[Ticket]}
    * @description - Returns an array of tickets in a particular time block.
    */
-  getTicketsInDateRange({ startDate, days, backwards = false }) {}
-
+  getTicketsInDateRange({ startDate, days, backwards = false }) {
+    var ticketsInRange = new Array(0);
+    // Initialize lower bound at the start of the day and upperbound at the end of the day
+    var lowerBound = new Date(startDate);
+    lowerBound.setHours(0);
+    lowerBound.setMinutes(0);
+    lowerBound.setSeconds(0);
+    lowerBound.setMilliseconds(0);
+    var upperBound = new Date(startDate);
+    upperBound.setHours(23);
+    upperBound.setMinutes(59);
+    upperBound.setSeconds(59);
+    upperBound.setMilliseconds(999);
+    // Move the bounds depending on the control variable backwards
+    if (backwards === true) {
+      lowerBound.setDate(startDate.getDate() - days);
+    } else {
+      upperBound.setDate(startDate.getDate() + days);
+    }
+    // Push the tickets in range into an array
+    for (var i = 0; i < this.tickets.length; i++) {
+      if (
+        this.tickets[i].timestamp > lowerBound &&
+        this.tickets[i].timestamp < upperBound
+      ) {
+        ticketsInRange.push(this.tickets[i]);
+      }
+    }
+    return ticketsInRange;
+  }
   // ------------------------------------------------------------------------------------------------ //
   /**
    * @name updateProgress
