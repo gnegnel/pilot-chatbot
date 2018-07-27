@@ -565,6 +565,19 @@ describe("User functions", function() {
     gender: "male"
   });
 
+  function equalArrays(array1, array2) {
+    if (array1.length !== array2.length) {
+      return false;
+    }
+    for (let i = 0; i < array1.length; i++) {
+      if (array1[i] !== array2[i]) {
+        console.log(array1[i], array2[i]);
+        return false;
+      }
+    }
+    return true;
+  }
+
   beforeEach(function() {
     user.tickets = new Array(0);
   });
@@ -585,6 +598,58 @@ describe("User functions", function() {
 
       // Assert.
       expect(ticket).toBe(user.tickets[0]);
+    });
+  });
+
+  // ------------------------------------------------------------------------------------------------ //
+  // Get Ticket In Date Range
+  // ------------------------------------------------------------------------------------------------ //
+  describe("getTicketInDateRange", function() {
+    it("returns the tickets in a date range without backwards", function() {
+      // Arrange.
+      let confirmation = new Array(0);
+      for (let i = 0; i < 15; i++) {
+        let ticket = new Ticket({
+          timestamp: new Date(2018, 4, 15 + i),
+          url: String(i)
+        });
+        user.addTicket(ticket);
+        confirmation.push(ticket);
+      }
+
+      // Act.
+      let result = user.getTicketsInDateRange({
+        startDate: new Date(2018, 4, 20),
+        days: 7
+      });
+      confirmation = confirmation.slice(5, 13);
+
+      // Assert.
+      expect(equalArrays(result, confirmation)).toBe(true);
+    });
+
+    it("returns the tickets in a date range with backwards", function() {
+      // Arrange.
+      let confirmation = new Array(0);
+      for (let i = 0; i < 15; i++) {
+        let ticket = new Ticket({
+          timestamp: new Date(2018, 4, 15 + i),
+          url: String(i)
+        });
+        user.addTicket(ticket);
+        confirmation.push(ticket);
+      }
+
+      // Act.
+      let result = user.getTicketsInDateRange({
+        startDate: new Date(2018, 4, 27),
+        days: 7,
+        backwards: true
+      });
+      confirmation = confirmation.slice(5, 13);
+
+      // Assert.
+      expect(equalArrays(result, confirmation)).toBe(true);
     });
   });
 });
