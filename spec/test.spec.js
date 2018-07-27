@@ -611,7 +611,8 @@ describe("User functions", function() {
       for (let i = 0; i < 15; i++) {
         let ticket = new Ticket({
           timestamp: new Date(2018, 4, 15 + i),
-          url: String(i)
+          url: String(i),
+          id: i
         });
         user.addTicket(ticket);
         confirmation.push(ticket);
@@ -634,7 +635,8 @@ describe("User functions", function() {
       for (let i = 0; i < 15; i++) {
         let ticket = new Ticket({
           timestamp: new Date(2018, 4, 15 + i),
-          url: String(i)
+          url: String(i),
+          id: i
         });
         user.addTicket(ticket);
         confirmation.push(ticket);
