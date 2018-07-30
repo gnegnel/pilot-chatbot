@@ -605,8 +605,11 @@ describe("User functions", function() {
   // Get Ticket In Date Range
   // ------------------------------------------------------------------------------------------------ //
   describe("getTicketInDateRange", function() {
-    it("returns the tickets in a date range without backwards", function() {
+    it("returns the tickets in a positive range", function() {
       // Arrange.
+      let startDate = new Date(2018, 4, 20);
+      let days = 7;
+
       let confirmation = new Array(0);
       for (let i = 0; i < 15; i++) {
         let ticket = new Ticket({
@@ -620,8 +623,8 @@ describe("User functions", function() {
 
       // Act.
       let result = user.getTicketsInDateRange({
-        startDate: new Date(2018, 4, 20),
-        days: 7
+        startDate: startDate,
+        days: days
       });
       confirmation = confirmation.slice(5, 13);
 
@@ -629,8 +632,11 @@ describe("User functions", function() {
       expect(equalArrays(result, confirmation)).toBe(true);
     });
 
-    it("returns the tickets in a date range with backwards", function() {
+    it("returns the tickets in a negative range", function() {
       // Arrange.
+      let startDate = new Date(2018, 4, 27);
+      let days = -7;
+
       let confirmation = new Array(0);
       for (let i = 0; i < 15; i++) {
         let ticket = new Ticket({
@@ -644,14 +650,64 @@ describe("User functions", function() {
 
       // Act.
       let result = user.getTicketsInDateRange({
-        startDate: new Date(2018, 4, 27),
-        days: 7,
-        backwards: true
+        startDate: startDate,
+        days: days
       });
       confirmation = confirmation.slice(5, 13);
 
       // Assert.
       expect(equalArrays(result, confirmation)).toBe(true);
+    });
+
+    it("returns the tickets in a single day with a positive range", function() {
+      // Arrange.
+      let startDate = new Date(2018, 4, 20);
+      let days = 1;
+
+      let confirmation = new Array(0);
+      for (let i = 0; i < 15; i++) {
+        let ticket = new Ticket({
+          timestamp: new Date(2018, 4, 15 + i),
+          url: String(i),
+          id: i
+        });
+        user.addTicket(ticket);
+        confirmation.push(ticket);
+      }
+
+      // Act.
+      let result = user.getTicketsInDateRange({
+        startDate: startDate,
+        days: days
+      });
+      confirmation = confirmation.slice(5, 6);
+
+      // Assert.
+      expect(equalArrays(result, confirmation)).toBe(true);
+    });
+
+    it("returns the tickets in 0 days", function() {
+      // Arrange.
+      let startDate = new Date(2018, 4, 20);
+      let days = 0;
+
+      for (let i = 0; i < 15; i++) {
+        let ticket = new Ticket({
+          timestamp: new Date(2018, 4, 15 + i),
+          url: String(i),
+          id: i
+        });
+        user.addTicket(ticket);
+      }
+
+      // Act.
+      let result = user.getTicketsInDateRange({
+        startDate: startDate,
+        days: days
+      });
+
+      // Assert.
+      expect(result === undefined || result.length == 0).toBe(true);
     });
   });
 });
