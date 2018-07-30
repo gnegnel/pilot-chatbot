@@ -571,7 +571,6 @@ describe("User functions", function() {
     }
     for (let i = 0; i < array1.length; i++) {
       if (array1[i] !== array2[i]) {
-        console.log(array1[i], array2[i]);
         return false;
       }
     }
@@ -742,7 +741,6 @@ describe("User functions", function() {
         startDate: startDate,
         days: days
       });
-      console.log("​result", result);
 
       // Assert.
       expect(result === undefined || result.length == 0).toBe(true);
