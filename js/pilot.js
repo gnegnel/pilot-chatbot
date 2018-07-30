@@ -199,22 +199,23 @@ class User {
    * @description - Returns an array of tickets in a particular time block.
    */
   getTicketsInDateRange({ startDate, days }) {
-    var ticketsInRange = new Array(0);
-    // Initialize lower bound at the start of the day and upperbound at the end of the day
-    var lowerBound = new Date(startDate);
-    lowerBound.setHours(0);
-    lowerBound.setMinutes(0);
-    lowerBound.setSeconds(0);
-    lowerBound.setMilliseconds(0);
-    var upperBound = new Date(startDate);
-    upperBound.setHours(23);
-    upperBound.setMinutes(59);
-    upperBound.setSeconds(59);
-    upperBound.setMilliseconds(999);
-
-    // Move the bounds depending on the days variable
     if (days === 0) {
+      return new Array(0);
     } else {
+      var ticketsInRange = new Array(0);
+      // Initialize lower bound at the start of the day and upperbound at the end of the day
+      var lowerBound = new Date(startDate);
+      lowerBound.setHours(0);
+      lowerBound.setMinutes(0);
+      lowerBound.setSeconds(0);
+      lowerBound.setMilliseconds(0);
+      var upperBound = new Date(startDate);
+      upperBound.setHours(23);
+      upperBound.setMinutes(59);
+      upperBound.setSeconds(59);
+      upperBound.setMilliseconds(999);
+
+      // Move the bounds depending on the days variable
       if (days > 0) {
         days = days - 1;
         upperBound.setDate(startDate.getDate() + days);
@@ -222,19 +223,19 @@ class User {
         days = days + 1;
         lowerBound.setDate(startDate.getDate() + days);
       }
-    }
-    console.log(days);
+      console.log(days);
 
-    // Push the tickets in range into an array
-    for (var i = 0; i < this.tickets.length; i++) {
-      if (
-        this.tickets[i].timestamp >= lowerBound &&
-        this.tickets[i].timestamp <= upperBound
-      ) {
-        ticketsInRange.push(this.tickets[i]);
+      // Push the tickets in range into an array
+      for (var i = 0; i < this.tickets.length; i++) {
+        if (
+          this.tickets[i].timestamp >= lowerBound &&
+          this.tickets[i].timestamp <= upperBound
+        ) {
+          ticketsInRange.push(this.tickets[i]);
+        }
       }
+      return ticketsInRange;
     }
-    return ticketsInRange;
   }
   // ------------------------------------------------------------------------------------------------ //
   /**
